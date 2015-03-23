@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
 //= require highcharts
-//= require highcharts/highcharts-more # to get the new features in 2.3.0
+//= require highcharts/highcharts-more
+//= require highcharts/highstock

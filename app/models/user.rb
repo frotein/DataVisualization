@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 	field :id, :type => Integer
-	field :email, :type => String
 	field :name, :type => String
-	has_many :game_sessions
+	field :creation_date, :type => Time
+	field :updation_date, :type => Time
 end
