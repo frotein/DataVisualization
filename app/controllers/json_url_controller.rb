@@ -5,7 +5,7 @@ class JsonUrlController < ApplicationController
 
   def new
   	 
-    @result = JSON.parse(open("http://localhost:10003/GL_VPAL_Interactions").read)
+    @result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions").read)
     @names = []
 	i = 0
     
