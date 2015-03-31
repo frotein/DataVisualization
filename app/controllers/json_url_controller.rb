@@ -24,7 +24,7 @@ class JsonUrlController < ApplicationController
       f.chart({:defaultSeriesType=>"column"})
     end
   
-     render "charts" , layout: "application"
+  
   end
 
 
