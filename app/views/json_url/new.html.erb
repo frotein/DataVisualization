@@ -1,21 +1,8 @@
 <h1>Get The SQL Database</h1>
+<%= select(:json_url_controller, :names, @names) %>
+  
 
-<table id= "player info">                         
-  <tr> 
-  	<th>player:</th>
-  		<% @names.each do |dat| %>                         
-    		<th> <%= dat %> </th>
-    	<% end %>
-  </tr>
- 
-<% (0..200).each do |i| %>       
- <tr>
-  	<td> <%= i %> </td> 
-  	<% (0..15).each do |j| %>                       
-    <td><%= @rows[i][j] %></td>  		
-    <% end %>
-  </tr>    
-<% end %>                       
-</table>   
+<%= high_chart("Attribute_6", @chart) %>
+
       
 

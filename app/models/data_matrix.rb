@@ -12,5 +12,14 @@ class DataMatrix < ActiveRecord::Base
     		end
     	end
     	m2
-	end	  	
+	end	
+
+    def self.getNames
+      	result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions").read)
+        m = []
+        result[0].each_with_index do |dat, index|
+            m[index] = dat[0]    
+        end
+        m
+    end
 end

@@ -4,10 +4,12 @@ class JsonUrlController < ApplicationController
 	require 'matrix'
 
   def new
-  	 
-    @rows = DataMatrix.getData();
+  	@dropdown = []
+    @names = DataMatrix.getNames() 
+    @rows = DataMatrix.getData()
     m2 = @rows
-
+   
+    
     @mat = Matrix[*m2]
     i = 0
      @chart = LazyHighCharts::HighChart.new('graph') do |f|
@@ -24,10 +26,9 @@ class JsonUrlController < ApplicationController
       f.chart({:defaultSeriesType=>"column"})
     end
   
-  
+    
   end
 
-
-
+  
   
 end
