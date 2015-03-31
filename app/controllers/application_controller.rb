@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
 
   def charts
+     
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title({ :text=>"Combination chart"})
       f.options[:xAxis][:categories] = ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
