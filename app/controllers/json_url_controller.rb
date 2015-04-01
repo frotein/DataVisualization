@@ -52,7 +52,7 @@ class JsonUrlController < ApplicationController
     @len =  to - from 
     
     @checks.each_with_index do |c,index|
-      @colArray = @mat.column(index + 1).to_a()
+      @colArray = @mat.column(index).to_a()
       @subAr = @colArray.slice(from,@len)
       if c != nil
       f.series(:name => c, :yAxis => 0, :data => @subAr)    
