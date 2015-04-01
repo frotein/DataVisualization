@@ -1,23 +1,17 @@
 <h1>Get The SQL Database</h1>
 
 <%= form_tag("/json_url/create", method: "get") do %>
-  <%= label_tag(:q, "Player from: ") %>
-  <%= number_field_tag(:from) %>
-  <%= label_tag(:l, "to: ") %>
-  <%= number_field_tag(:to) %>
+  <%= label_tag(:q, "Players from: ") %>
+  <%= number_field_tag(:from,value: @from) %>
+  <%= label_tag(:to, "to: ") %>
+  <%= number_field_tag(:to,value: @to) %>
   <%= submit_tag("Update") %>
   	<% @names.each_with_index do |n,index| %>
   		<% if index < 5 %>
-  		<%= check_box_tag(n,:c) %>
+  		<%= check_box_tag(:abcdefgh[index],n) %>
   		<%= label_tag(:l,n) %> 
   		<% end %>
   	<% end %>
 <% end %>
-
-
-<% @checks.each do |c| %>
-test 
-<% end %>
-
 <%= high_chart("Attribute_6", @chart) %>
 
