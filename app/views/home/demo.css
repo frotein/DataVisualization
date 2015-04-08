@@ -1,0 +1,19 @@
+
+nav {background:#FFF;}
+nav ul {text-align:center;}
+nav ul li {float:left;display:inline;width:200px;}
+nav ul li:hover {background:#E6E6E6;}
+nav ul li a {display:block;padding:15px 25px;color:#444;}
+nav ul li ul {position:absolute;width:200px;background:#FFF;}
+nav ul li ul li {margin:0;padding:0;width:200px;}
+nav ul li ul li a {display:block;padding:15px 25px;color:#444;}
+nav ul li ul li:hover a {background:#F7F7F7;}
+body{
+	text-align:center;
+	position: center;
+}
+
+#main{
+	text-align:center;
+	position: center;
+}
