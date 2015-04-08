@@ -1,4 +1,4 @@
-<h1>Get The SQL Database</h1>
+<h1>A flexible way to compare several values between particular users</h1>
 
 <%= form_tag("/json_url/create", method: "get") do %>
   <%= label_tag(:q, "Player from: ") %>
@@ -12,11 +12,6 @@
   		<%= label_tag(:l,n) %> 
   		<% end %>
   	<% end %>
-<% end %>
-
-
-<% @checks.each do |c| %>
-test 
 <% end %>
 
 <%= high_chart("Attribute_6", @chart) %>

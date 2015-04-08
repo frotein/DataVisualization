@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Pie Chart</h1>
 <%#<%= select(:pie_controller, :names, @names) %>
 <%= form_tag("/pie/new", method: "get") do %>
@@ -13,4 +14,12 @@
 	<%= high_chart(index.to_s, c) %>
 	<br>	
 <% end %>      
+=======
+<h1>A neat pie chart that you will appreciate</h1>
+<%= select(:pie_controller, :names, @names) %>
+  
+<%= high_chart("Attribute_6", @chart) %>
+
+      
+>>>>>>> origin/master
 
