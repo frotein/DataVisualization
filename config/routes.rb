@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'home/new'
+
+  get 'home/create'
+
   resources :json_url, :only => [:show, :new, :create]
   resources :by_attribute, :only => [:show, :new, :create]
   resources :pie, :only=> [:show, :new, :create]
