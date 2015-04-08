@@ -1,7 +1,16 @@
-<h1>Get The SQL Database</h1>
-<%= select(:pie_controller, :names, @names) %>
-  
-<%= high_chart("Attribute_6", @chart) %>
-
-      
+<h1>Pie Chart</h1>
+<%#<%= select(:pie_controller, :names, @names) %>
+<%= form_tag("/pie/new", method: "get") do %>
+<%= submit_tag("Update") %>
+<% @names.each_with_index do |n,index| %>
+  		<% if index < 5 %>
+  		<%= check_box_tag(:abcdefgh[index],n) %>
+  		<%= label_tag(:l,n) %> 
+  		<% end %>
+  	<% end %>  
+<% end %>
+<% @chart.each_with_index do |c,index| %>
+	<%= high_chart(index.to_s, c) %>
+	<br>	
+<% end %>      
 
