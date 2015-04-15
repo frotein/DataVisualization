@@ -23,8 +23,9 @@ class DataMatrix < ActiveRecord::Base
         m
     end
 
-    def self.geByUserID(id)
+    def self.getByUserID(id)
         result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/" + id).read)
+        result
     end
 
     def self.validIds

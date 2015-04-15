@@ -40,7 +40,7 @@ class PieController < ApplicationController
     @valid_ids.each do |id|
       @csv[id.to_s]
       @user_records["UID:" + id.to_s]
-      result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/"+ id.to_s).read)
+      result = DataMatrix.getByUserID(id.to_s)
       result = result.first[@attribute]
       @user_records["UID:" + id.to_s] = result
       @csv[id.to_s] = result

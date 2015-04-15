@@ -15,7 +15,7 @@ class ByAttributeController < ApplicationController
     @valid_ids = DataMatrix.validIds
     
 
-    result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/"+ @user_id).read)
+    result = DataMatrix.getByUserID(@user_id)
     @rows = Hash.new
     params.each do |key, value|
       if key.start_with?("display_me_")

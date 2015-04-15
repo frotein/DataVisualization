@@ -31,7 +31,7 @@ class JsonUrlController < ApplicationController
     end
     @valid_ids.each do |id|
       @user_records[id] = []
-      result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/"+ id.to_s).read)
+      result = DataMatrix.getByUserID(id.to_s)
       result = result.take(1)
 
       result.each do |record|
