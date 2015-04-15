@@ -1,24 +1,28 @@
-<h1>Get The SQL Database</h1>
+<h1>Most recent values for <%= @rows.keys.join(", ") %> for users between <%= @from %> and <%= @to %></h1>
 
 <%= form_tag("/json_url/create", method: "get") do %>
   <%= label_tag(:q, "Players from: ") %>
-  <%= number_field_tag(:from,value: @from) %>
+  <%= number_field_tag(:from, @from) %>
   <%= label_tag(:to, "to: ") %>
-  <%= number_field_tag(:to,value: @to) %>
+  <%= number_field_tag(:to, @to) %>
   <%= submit_tag("Update") %>
-  	<% @names.each_with_index do |n,index| %>
-  		<% if index < 5 %>
-  		<%= check_box_tag(:abcdefgh[index],n) %>
-  		<%= label_tag(:l,n) %> 
-  		<% end %>
-  	<% end %>
+  
+  <% @names.each_with_index do |n,index| %>
+    <% checked = @rows.has_key?(n) %>
+    <%= check_box_tag("display_me_" + n, n, checked) %>
+    <%= label_tag(:l,n) %> 
+  <% end %>
+
 <% end %>
-<%= high_chart("Attribute_6", @chart) %>
+<%= high_chart("GroupByUser", @chart) %>
 
 <h2>CSV of above data</h2>
-<%= @csv.keys.join(", ")%> 
+<h3>First row attribute of each row, second row gives the user of each collumn</h3>
+<%= @rows.keys.join(", ")%> 
 </br>
-<% @csv.each_value do |row|%> 
-<%= "#{row.to_a.join(', ')}, "  %>
+<%= @user_records.keys.join(", ")%> 
+</br>
+<% @rows.each_value do |row|%> 
+<%= "#{row.to_a.join(', ')} "  %>
 </br>
 <% end %>
