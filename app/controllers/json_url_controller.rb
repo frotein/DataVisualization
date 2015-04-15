@@ -4,76 +4,71 @@ class JsonUrlController < ApplicationController
 	require 'matrix'
 
   def new
-  	@input = ""
-    @checks = [params[:a], params[:b],params[:c],params[:d],params[:e],params[:f],params[:g] ]
-    @names = DataMatrix.getNames() 
-    @rows = DataMatrix.getData()
-    @from  = params[:from]
-    @to = params[:to]
-    @subAr = [1,2]
-    m2 = @rows
-    
-    
-    @mat = Matrix[*m2]
-    @colArray = [1, 3, 5]
-    i = 0
-     @chart = LazyHighCharts::HighChart.new('graph') do |f|
-      f.title(:text => "Comparing Player Attributes")
-
-      f.xAxis(:categories => [ 1 , 2, 3, 4, 5])
-      
-      f.yAxis [
-        {:title => {:text => "Player Attributes Comparison", :margin => 70} }
-             ]
-      
-      f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
-      f.chart({:defaultSeriesType=>"column"})
-    end
-  
+    @names = DataMatrix.getNames()
+    valid_ids = DataMatrix.validIds
+    valid_ids = valid_ids.sort
+    @min = valid_ids.first
+    @max = valid_ids.last
   end
 
   def show
-  @input = ""
-  @subAr = [1,2]
-  @checks = [params[:a], params[:b],params[:c],params[:d],params[:e],params[:f],params[:g] ]
-  @from  = params[:from]
-  @to = params[:to]
-  @rows = DataMatrix.getData()
-  @names = DataMatrix.getNames() 
-  @colArray = [1, 3, 5]
-  m2 = @rows  
-    @mat = Matrix[*m2]
-    @chart = LazyHighCharts::HighChart.new('graph') do |f|
-    f.title(:text => params[:l])
-    to = @to.to_i()
-    from = @from.to_i()
-    titles = [*from..to]
-    f.xAxis(:categories => titles)
+    @names = DataMatrix.getNames() 
+    @valid_ids = DataMatrix.validIds
+    @from  = params[:from]
+    @to = params[:to]
+    @valid_ids.sort
+    @min = @valid_ids.first
+    @max = @valid_ids.last
+
+    @valid_ids.delete_if{|val| val < @from.to_i || val > @to.to_i}
+    @user_records = Hash.new
     
-    @len =  to - from 
-    
-    @checks.each_with_index do |c,index|
-      
-      @colArray = @mat.column(index).to_a()
-      @subAr = @colArray.slice(from,@len)
-      if c != nil
-      f.series(:name => c, :yAxis => 0, :data => @subAr)    
+    @rows = Hash.new
+    params.each do |key, value|
+      if key.start_with?("display_me_")
+        @rows[value] = []
       end
     end
-      
-      
-    
-    f.yAxis [
-      {:title => {:text => "Player Attributes Comparison", :margin => 70} }
-           ]
+    @valid_ids.each do |id|
+      @user_records[id] = []
+      result = DataMatrix.getByUserID(id.to_s)
+      result = result.take(1)
 
-    f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
-    f.chart({:defaultSeriesType=>"column"})
+      result.each do |record|
+        @rows.each_key do |attri|
+          @rows[attri].push(record[attri])
+          @user_records[id].push(record[attri])
+        end
+      end
     end
+    @chart_attribute = LazyHighCharts::HighChart.new('GroupByAttr') do |f|
+      f.title(:text => "Most Recent Values of " + @rows.keys.join(", ") + " by Attribute")
+      
+      f.xAxis(:categories => @rows.keys)
+
+      @user_records.each do |key, value|
+        f.series(:name => "User "+key.to_s, :yAxis => 0, :data => value)
+      end    
+      f.yAxis(:title => {:text => "Player Attributes Comparison"} )
+
+      f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
+      f.chart({:defaultSeriesType=>"column"})
+    end
+
+    @chart_user = LazyHighCharts::HighChart.new('GroupByUser') do |f|
+      f.title(:text => "Most Recent Values of " + @rows.keys.join(", ") + " by User Id")
+      
+      f.xAxis(:categories => @user_records.keys, :title => {:text => "User Id", :margin => 70})
+
+      @rows.each do |key, value|
+        f.series(:name => key.to_s, :yAxis => 0, :data => value)
+      end    
+      f.yAxis(:title => {:text => "Player Attributes Comparison", :margin => 70} )
+
+      f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
+      f.chart({:defaultSeriesType=>"column"})
+    end
+
   end
-  
 
-
-  
-  
 end
