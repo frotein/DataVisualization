@@ -41,19 +41,34 @@ class JsonUrlController < ApplicationController
         end
       end
     end
-    @chart = LazyHighCharts::HighChart.new('GroupByUser') do |f|
-      f.title(:text => "Most Recent Values of " + @rows.keys.join(", "))
+    @chart_attribute = LazyHighCharts::HighChart.new('GroupByAttr') do |f|
+      f.title(:text => "Most Recent Values of " + @rows.keys.join(", ") + " by Attribute")
       
       f.xAxis(:categories => @rows.keys)
 
       @user_records.each do |key, value|
         f.series(:name => "User "+key.to_s, :yAxis => 0, :data => value)
       end    
+      f.yAxis(:title => {:text => "Player Attributes Comparison"} )
+
+      f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
+      f.chart({:defaultSeriesType=>"column"})
+    end
+
+    @chart_user = LazyHighCharts::HighChart.new('GroupByUser') do |f|
+      f.title(:text => "Most Recent Values of " + @rows.keys.join(", ") + " by User Id")
+      
+      f.xAxis(:categories => @user_records.keys, :title => {:text => "User Id", :margin => 70})
+
+      @rows.each do |key, value|
+        f.series(:name => key.to_s, :yAxis => 0, :data => value)
+      end    
       f.yAxis(:title => {:text => "Player Attributes Comparison", :margin => 70} )
 
       f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical')
       f.chart({:defaultSeriesType=>"column"})
     end
+
   end
 
 end
