@@ -23,12 +23,17 @@ class DataMatrix < ActiveRecord::Base
         m
     end
 
-    def self.getDataColumn(name)
-        result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/" + name + "/").read)
-        result
-    end 
-
-    def self.geByUserID(id)
+    def self.getByUserID(id)
         result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/" + id).read)
+        result
+    end
+
+    def self.validIds
+        valid_ids_temp = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/").read).uniq
+        valid_ids = []
+        valid_ids_temp.each do |id|
+          valid_ids.push(id["user_id"])
+        end
+        valid_ids
     end
 end
