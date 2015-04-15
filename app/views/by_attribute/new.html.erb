@@ -1,8 +1,18 @@
 <h1>All Attribute 6 for every run by User 117</h1>
 
-<%= select(:json_url_controller, :names, @names) %>
+<%= form_tag("/by_attribute/create", method: "get") do %>
+  <%= label_tag(:q, "Player id: ") %>
+  <%= number_field_tag(:from,value: @id) %>
+  <%= submit_tag("Update") %>
+  	<% @names.each_with_index do |n,index| %>
+		<%= check_box_tag("display_me_" + n, n) %>
+		<%= label_tag(:l,n) %> 
+  	<% end %>
+<% end %>
 
 <%= high_chart("Attribute_6", @chartty) %>
 
 <h2>CSV of above data</h2>
+attribute_6
+</br>
 <%= @line %>
