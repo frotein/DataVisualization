@@ -1,16 +1,11 @@
 <h1>Pie Chart</h1>
 <%#<%= select(:pie_controller, :names, @names) %>
-<%= form_tag("/pie/new", method: "get") do %>
-<%= submit_tag("Update") %>
-<% @names.each_with_index do |n,index| %>
-  		<% if index < 5 %>
-  		<%= check_box_tag(:abcdefgh[index],n) %>
-  		<%= label_tag(:l,n) %> 
-  		<% end %>
-  	<% end %>  
+<%= form_tag("/pie/create", method: "get") do %>
+	<%= label_tag(:q, "Players from: ") %>
+ 	<%= number_field_tag(:from, nil, :min => @min, :max => @max) %>
+	<%= label_tag(:l, "to: ") %>
+	<%= number_field_tag(:to, nil, :min => @min, :max => @max) %>
+	<%= submit_tag("Update") %>
+
+	<%= select_tag(:attribute, options_for_select(@names), )%>
 <% end %>
-<% @chart.each_with_index do |c,index| %>
-	<%= high_chart(index.to_s, c) %>
-	<br>	
-<% end %>  
-    
