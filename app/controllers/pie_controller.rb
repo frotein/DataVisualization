@@ -35,18 +35,26 @@ class PieController < ApplicationController
 
     @valid_ids.delete_if{|val| val < @from.to_i || val > @to.to_i}
     @user_records = Hash.new
+    @csv = Hash.new
     
     @valid_ids.each do |id|
+      @csv[id.to_s]
       @user_records["UID:" + id.to_s]
       result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/"+ id.to_s).read)
       result = result.first[@attribute]
       @user_records["UID:" + id.to_s] = result
+      @csv[id.to_s] = result
       total = total + result.to_i
     end
 
     @user_records.each do |id|
       id = (100 * @user_records[id].to_i) / total
     end
+
+    @csv.each do |id|
+      id = @user_records[id].to_i / total
+    end
+
     @pie_chart = LazyHighCharts::HighChart.new('pie') do |f|
       f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
       series = {

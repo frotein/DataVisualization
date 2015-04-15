@@ -10,3 +10,12 @@
 	<%= select_tag(:attribute, options_for_select(@names, @attribute), )%>
 <% end %>
 <%= high_chart("pie", @pie_chart) %>
+</br>
+</br>
+
+<h2>CSV of above data</h2>
+<h3>Top row is User Ids, bottom is attribute percentages</h3>
+<%= @csv.keys.join(", ")%> 
+</br>
+<%= @csv.values.join(", ")%> 
+</br>
