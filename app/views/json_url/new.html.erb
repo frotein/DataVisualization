@@ -2,9 +2,9 @@
 
 <%= form_tag("/json_url/create", method: "get") do %>
   <%= label_tag(:q, "Player from: ") %>
-  <%= number_field_tag(:from) %>
+  <%= number_field_tag(:from, nil, :min => @min, :max => @max) %>
   <%= label_tag(:l, "to: ") %>
-  <%= number_field_tag(:to) %>
+  <%= number_field_tag(:to, nil, :min => @min, :max => @max) %>
   <%= submit_tag("Update") %>
   	
   <% @names.each_with_index do |n,index| %>

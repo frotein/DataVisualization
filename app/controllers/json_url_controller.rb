@@ -4,7 +4,11 @@ class JsonUrlController < ApplicationController
 	require 'matrix'
 
   def new
-    @names = DataMatrix.getNames() 
+    @names = DataMatrix.getNames()
+    valid_ids = DataMatrix.validIds
+    valid_ids = valid_ids.sort
+    @min = valid_ids.first
+    @max = valid_ids.last
   end
 
   def show
@@ -12,6 +16,9 @@ class JsonUrlController < ApplicationController
     @valid_ids = DataMatrix.validIds
     @from  = params[:from]
     @to = params[:to]
+
+    @min = @valid_ids.first
+    @max = @valid_ids.last
 
     @valid_ids.delete_if{|val| val < @from.to_i || val > @to.to_i}
     @user_records = Hash.new
