@@ -47,7 +47,8 @@ class JsonUrlController < ApplicationController
     f.title(:text => params[:l])
     to = @to.to_i()
     from = @from.to_i()
-    f.xAxis(:categories => [ to , to + 1, to + 2, to + 3, to + 4,to + 5, to + 6, to + 7, to + 8,to + 9,to + 10,to + 11, to + 12, to + 13, to + 14,to + 15, to + 16, to + 17, to + 18])
+    titles = [*from..to]
+    f.xAxis(:categories => titles)
     
     @len =  to - from 
     
