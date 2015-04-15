@@ -12,57 +12,72 @@ class PieController < ApplicationController
     return ret_array
   end
 
-def new
-    @dropdown = []
-    @checks = [params[:a], params[:b],params[:c],params[:d],params[:e],params[:f],params[:g] ]
-    @names = DataMatrix.getNames() 
-    @rows = DataMatrix.getData()
-    m2 = @rows
-   my_row = []
-    @chart = []
-    @mat = Matrix[*m2]
-    chartRow = 0
-    @checks.each_with_index do |c,index|
-        if(c != nil)
-        my_row = @mat.column(index).to_a()
-        pieHash = []
-        for item in my_row
-          if(inspectKeys(pieHash).include? item.to_s)
-            for current_position in 0..(pieHash.length-1)
-              s = item.to_s
-              if pieHash[current_position][0] == s
-                pieHash[current_position][1] += 1
-              end
-            end
-          else
-            pieHash.push([item.to_s, 1])
-          end
-        end
+  def new
+    @names = DataMatrix.getNames()
+    valid_ids = DataMatrix.validIds
+    valid_ids = valid_ids.sort
+    @min = valid_ids.first
+    @max = valid_ids.last
+  end
 
-        @chart[chartRow] = LazyHighCharts::HighChart.new('pie') do |f|
-        f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
-        series = {
-                 :type=> 'pie',
-                 :name=> 'Shared entry',
-                 :data=> pieHash,
-        }
-        f.series(series)
-        f.options[:title][:text] = "Pie Chart"
-        f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '50px',:top=> '100px'}) 
-        f.plot_options(:pie=>{
-          :allowPointSelect=>true, 
-          :cursor=>"pointer" , 
-          :dataLabels=>{
-            :enabled=>true,
-            :color=>"black",
-            :style=>{
-              :font=>"13px Trebuchet MS, Verdana, sans-serif"
-            }
+  def show
+    @names = DataMatrix.getNames()
+    @valid_ids = DataMatrix.validIds
+    valid_ids = @valid_ids.sort
+    
+    @min = valid_ids.first
+    @max = valid_ids.last
+    @from  = params[:from]
+    @to = params[:to]
+
+    @attribute = params[:attribute]
+    total = 0.0
+
+    @valid_ids.delete_if{|val| val < @from.to_i || val > @to.to_i}
+    @user_records = Hash.new
+    @csv = Hash.new
+    
+    @valid_ids.each do |id|
+      @csv[id.to_s]
+      @user_records["UID:" + id.to_s]
+      result = DataMatrix.getByUserID(id.to_s)
+      result = result.first[@attribute]
+      @user_records["UID:" + id.to_s] = result
+      @csv[id.to_s] = result
+      total = total + result.to_i
+    end
+
+    @user_records.each do |id|
+      id = (100 * @user_records[id].to_i) / total
+    end
+
+    @csv.each do |id|
+      id = @user_records[id].to_i / total
+    end
+
+    @pie_chart = LazyHighCharts::HighChart.new('pie') do |f|
+      f.chart({:defaultSeriesType=>"pie" , :margin=> [50, 200, 60, 170]} )
+      series = {
+              :type=> 'pie',
+              :name=> 'Shared entry',
+              :data=> @user_records.to_a
+      }
+      f.series(series)
+      f.tooltip({pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'})
+      f.options[:title][:text] = "Distribution of " + @attribute
+      f.legend(:layout=> 'horizontal',:style=> {:left=> 'auto', :bottom=> '500px',:right=> '50px',:top=> '1000px'})
+      f.plot_options(:pie=>{
+        :allowPointSelect=>true, 
+        :cursor=>"pointer" , 
+        :dataLabels=>{
+          :enabled=>true,
+          :color=>"black",
+          :style=>{
+            :font=>"13px Trebuchet MS, Verdana, sans-serif"
           }
-        })
-      end
-    chartRow+=1
+        },
+        :showInLegend => true
+      })
     end
   end
-end
 end

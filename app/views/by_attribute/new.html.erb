@@ -1,5 +1,11 @@
-<h1>All Attribute 6 for every run by User 117</h1>
+<h1>Select a user ID and attributes to view</h1>
 
-<%= select(:json_url_controller, :names, @names) %>
-
-<%= high_chart("Attribute_6", @chartty) %>
+<%= form_tag("/by_attribute/create", method: "get") do %>
+  <%= label_tag(:q, "Player id: ") %>
+  <%= select_tag(:from, options_for_select(@valid_ids, @user_id), :include_blank => true)%>
+  <%= submit_tag("Update") %>
+  	<% @names.each_with_index do |n,index| %>
+		<%= check_box_tag("display_me_" + n, n) %>
+		<%= label_tag(:l,n) %> 
+  	<% end %>
+<% end %>
