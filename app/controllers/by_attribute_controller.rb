@@ -5,23 +5,15 @@ class ByAttributeController < ApplicationController
 
   def new
     @names = DataMatrix.getNames()
-  
-    valid_ids_temp = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/").read).uniq
-    @valid_ids = []
-    valid_ids_temp.each do |id|
-      @valid_ids.push(id["user_id"])
-    end
+    @valid_ids = DataMatrix.validIds
   end
 
   def show
     
     @names = DataMatrix.getNames()
     @user_id = params[:from]
-    valid_ids_temp = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/").read).uniq
-    @valid_ids = []
-    valid_ids_temp.each do |id|
-      @valid_ids.push(id["user_id"])
-    end
+    @valid_ids = DataMatrix.validIds
+    
 
     result = JSON.parse(open("http://localhost:10009/GL_VPAL_Interactions/user_id/"+ @user_id).read)
     @rows = Hash.new
