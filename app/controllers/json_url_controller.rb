@@ -16,7 +16,7 @@ class JsonUrlController < ApplicationController
     @valid_ids = DataMatrix.validIds
     @from  = params[:from]
     @to = params[:to]
-
+    @valid_ids.sort
     @min = @valid_ids.first
     @max = @valid_ids.last
 

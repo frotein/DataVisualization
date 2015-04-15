@@ -1,0 +1,12 @@
+<h1>Pie Chartzzzzzzzzz</h1>
+<%#<%= select(:pie_controller, :names, @names) %>
+<%= form_tag("/pie/create", method: "get") do %>
+	<%= label_tag(:q, "Players from: ") %>
+ 	<%= number_field_tag(:from, @from, :min => @min, :max => @max) %>
+	<%= label_tag(:l, "to: ") %>
+	<%= number_field_tag(:to, @to, :min => @min, :max => @max) %>
+	<%= submit_tag("Update") %>
+
+	<%= select_tag(:attribute, options_for_select(@names, @attribute), )%>
+<% end %>
+<%= high_chart("pie", @pie_chart) %>

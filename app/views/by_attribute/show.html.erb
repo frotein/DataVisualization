@@ -2,7 +2,7 @@
 
 <%= form_tag("/by_attribute/create", method: "get") do %>
   <%= label_tag(:q, "Player id: ") %>
-  <%= select_tag(:from, options_for_select(@valid_ids, @user_id), )%>
+  <%= select_tag(:from, options_for_select(@valid_ids, @user_id) )%>
   <%= submit_tag("Update") %>
   	<% @names.each_with_index do |n,index| %>
   		<% checked = @rows.has_key?(n) %>
