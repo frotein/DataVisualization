@@ -15,3 +15,10 @@
 <% end %>
 <%= high_chart("Attribute_6", @chart) %>
 
+<h2>CSV of above data</h2>
+<%= @csv.keys.join(", ")%> 
+</br>
+<% @csv.each_value do |row|%> 
+<%= "#{row.to_a.join(', ')}, "  %>
+</br>
+<% end %>

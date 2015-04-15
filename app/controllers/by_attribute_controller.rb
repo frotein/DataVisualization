@@ -26,6 +26,8 @@ class ByAttributeController < ApplicationController
       f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
       f.chart({:defaultSeriesType=>"column"})
     end
+    @line = @mat.column(1).to_a.to_s[1 .. -2]
+
   end
 
 end

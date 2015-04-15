@@ -33,15 +33,18 @@ class JsonUrlController < ApplicationController
   end
 
   def show
-  @input = ""
-  @subAr = [1,2]
-  @checks = [params[:a], params[:b],params[:c],params[:d],params[:e],params[:f],params[:g] ]
-  @from  = params[:from]
-  @to = params[:to]
-  @rows = DataMatrix.getData()
-  @names = DataMatrix.getNames() 
-  @colArray = [1, 3, 5]
-  m2 = @rows  
+    @input = ""
+    @subAr = [1,2]
+    @checks = [params[:a], params[:b],params[:c],params[:d],params[:e],params[:f],params[:g] ]
+    @from  = params[:from]
+    @to = params[:to]
+    @rows = DataMatrix.getData()
+    @names = DataMatrix.getNames() 
+    @colArray = [1, 3, 5]
+    m2 = @rows  
+
+    @csv = Hash[]
+
     @mat = Matrix[*m2]
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
     f.title(:text => params[:l])
@@ -56,12 +59,11 @@ class JsonUrlController < ApplicationController
       @colArray = @mat.column(index).to_a()
       @subAr = @colArray.slice(from,@len)
       if c != nil
-      f.series(:name => c, :yAxis => 0, :data => @subAr)    
+        f.series(:name => c, :yAxis => 0, :data => @subAr)
+        @csv[c] = @subAr
       end
     end
-      
-      
-    
+          
     f.yAxis [
       {:title => {:text => "Player Attributes Comparison", :margin => 70} }
            ]
@@ -70,9 +72,5 @@ class JsonUrlController < ApplicationController
     f.chart({:defaultSeriesType=>"column"})
     end
   end
-  
 
-
-  
-  
 end
