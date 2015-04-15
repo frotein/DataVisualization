@@ -2,7 +2,7 @@
 
 <%= form_tag("/by_attribute/create", method: "get") do %>
   <%= label_tag(:q, "Player id: ") %>
-  <%= number_field_tag(:from,@user_id) %>
+  <%= select_tag(:from, options_for_select(@valid_ids, @user_id), )%>
   <%= submit_tag("Update") %>
   	<% @names.each_with_index do |n,index| %>
   		<% checked = @rows.has_key?(n) %>
@@ -10,8 +10,8 @@
 		<%= label_tag(:l,n) %> 
   	<% end %>
 <% end %>
-
-<%= high_chart("Attribute_6", @chartty) %>
+</br>
+	<%= high_chart("Attribute_6", @chartty) %>
 
 <h2>CSV of above data</h2>
 <%= @rows.keys.join(", ") %>
