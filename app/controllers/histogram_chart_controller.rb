@@ -7,9 +7,9 @@ class HistogramChartController < ApplicationController
 	@names = DataMatrix.getNames() 
     @rows = DataMatrix.getData()
     @freq = params[:freq].to_f
-    if(@freq == nil)
+    if(@freq == nil || @freq == 0)
     @freq = 10
-	end
+	  end
 
     @from  = params[:from]
   	@to = params[:to];
@@ -79,6 +79,7 @@ class HistogramChartController < ApplicationController
 
 
 end
+  
   def show
   
   end
