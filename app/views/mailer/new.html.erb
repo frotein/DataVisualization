@@ -1,0 +1,10 @@
+<h1>Email</h1>
+<%#<%= select(:pie_controller, :names, @names) %>
+<%= form_tag("/mailer/create", method: "get") do %>
+	<%= label_tag(:q, "Email Address") %>
+ 	<%= text_field_tag(:email, nil, {}) %> <%#tag to get email from%>
+	<%= label_tag(:l, "Input Codes:") %>
+	<%= text_field_tag(:Codes, nil, {}) %> <%#tag to insert code%>
+	<%= submit_tag("Update") %>
+
+<% end %>

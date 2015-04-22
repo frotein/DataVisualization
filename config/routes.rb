@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'mailer/new'
+
+  get 'mailer/create'
+
   get 'home/new'
 
   get 'home/create'
