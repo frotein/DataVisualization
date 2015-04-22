@@ -1,10 +1,11 @@
 require 'histogram/array'  # enables Array#histogram
 require 'googlecharts'
+require 'csv'
 
 class HistogramChartController < ApplicationController
   def new
-
-	@names = DataMatrix.getNames() 
+	@csvHash = Hash.new
+  @names = DataMatrix.getNames() 
     @rows = DataMatrix.getData()
     @freq = params[:freq].to_f
     if(@freq == nil || @freq == 0)
@@ -28,6 +29,7 @@ class HistogramChartController < ApplicationController
 	end
 	
     m2 = @rows
+
     @chart = []
     titles = []
     @mat = Matrix[*m2]
@@ -48,13 +50,20 @@ class HistogramChartController < ApplicationController
 		        end
 		        nd = (temp+ @freq).to_s
 		        st = temp.to_s
-		       	titles[ind] = (st + " to " + nd)
-		        @histoAr[ind] = freqNum
-		        temp += @freq
+		        title = (st + " to " + nd)
+            titles[ind] = title
+            @histoAr[ind] = freqNum
+		        @csvHash[title] = freqNum
+            temp += @freq
 		        ind+=1
 		    end
+
    		end
+
   		
+      @s = CSV.generate do |csv| @csvHash.to_a.each do |elem| csv << elem end end
+      
+
   		 @chart = LazyHighCharts::HighChart.new('graph') do |f|
 	    f.title(:text => myname + " histogram")
 	    to = min.to_i()
@@ -80,6 +89,13 @@ class HistogramChartController < ApplicationController
 
 end
   
+  def download 
+     @s = params[:car]
+     send_data(@s, :filename => "Data.csv")
+  end
+
+
+
   def show
   
   end
