@@ -1,16 +1,24 @@
-<h1>Aaaaaaaaaaaz flexible way to compare several values between particular users</h1>
+<div class="wrapper">
+  <div class="head pure-g">
+    <h1 class="pure-u-5-5 header">Compare several values between several users in a bar chart</h1>
+  </div>
 
-<%= form_tag("/json_url/create", method: "get") do %>
-  <%= label_tag(:q, "Player from: ") %>
-  <%= number_field_tag(:from, nil, :min => @min, :max => @max) %>
-  <%= label_tag(:l, "to: ") %>
-  <%= number_field_tag(:to, nil, :min => @min, :max => @max) %>
-  <%= submit_tag("Update") %>
-  	
-  <% @names.each_with_index do |n,index| %>
-    <%= check_box_tag("display_me_" + n, n) %>
-    <%= label_tag(:l,n) %> 
-  <% end %>
+  <div id="main" class="header">
+    <%= form_tag("/json_url/create", method: "get", class: "") do %>
+      <%= label_tag(:q, "Player from: ") %>
+      <%= number_field_tag(:from, nil, :min => @min, :max => @max) %>
+      <%= label_tag(:l, "to: ") %>
+      <%= number_field_tag(:to, nil, :min => @min, :max => @max) %>
+      <%= submit_tag("Update") %>
+      <div id='attr_select' class="pure-g">
+        <% @names.each_with_index do |n,index| %>
+          <div class="pure-u-1-8">
+            <%= check_box_tag("display_me_" + n, n) %>
+            <%= label_tag(:l,n) %> 
+          </div>
+        <% end %>
+      </div>
 
-<% end %>
-
+    <% end %>
+    </div>
+</div>
