@@ -1,11 +1,17 @@
-<h1>Pie Chart</h1>
-<%#<%= select(:pie_controller, :names, @names) %>
-<%= form_tag("/pie/create", method: "get") do %>
-	<%= label_tag(:q, "Players from: ") %>
- 	<%= number_field_tag(:from, nil, :min => @min, :max => @max) %>
-	<%= label_tag(:l, "to: ") %>
-	<%= number_field_tag(:to, nil, :min => @min, :max => @max) %>
-	<%= submit_tag("Update") %>
+<div class="wrapper">
+	<div class="head pure-g">
+	    <h1 class="pure-u-5-5 header">Pie Chart</h1>
+	</div>
+	
+	<div id="main" class="header">
+		<%= form_tag("/pie/create", method: "get") do %>
+			<%= label_tag(:q, "Players from: ") %>
+			<%= number_field_tag(:from, nil, :min => @min, :max => @max) %>
+			<%= label_tag(:l, "to: ") %>
+			<%= number_field_tag(:to, nil, :min => @min, :max => @max) %>
+			<%= submit_tag("Update") %>
 
-	<%= select_tag(:attribute, options_for_select(@names), )%>
-<% end %>
+			<%= select_tag(:attribute, options_for_select(@names), )%>
+		<% end %>
+	</div>
+</div>
