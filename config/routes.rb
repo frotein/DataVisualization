@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   get 'histogram_chart/show'
 
-
   get 'home/new'
 
   get 'home/create'

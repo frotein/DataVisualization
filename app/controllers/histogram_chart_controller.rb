@@ -2,8 +2,14 @@ require 'csv'
 
 class HistogramChartController < ApplicationController
   def new
-	@csvHash = Hash.new
-  @names = DataMatrix.getNames() 
+    valid_ids = DataMatrix.validIds
+    valid_ids = valid_ids.sort
+    @minID = valid_ids.first
+    @maxID = valid_ids.last
+
+  	@csvHash = Hash.new
+    @names = DataMatrix.getNames() 
+
     @rows = DataMatrix.getData()
     @freq = params[:freq].to_f
     if(@freq == nil || @freq == 0)
