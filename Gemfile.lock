@@ -38,9 +38,11 @@ GEM
     coffee-script-source (1.9.1)
     erubis (2.7.0)
     execjs (2.4.0)
+    googlecharts (1.6.10)
     haml (4.0.6)
     hash-deep-merge (0.1.1)
     hike (1.2.3)
+    histogram (0.2.2.0)
     i18n (0.7.0)
     jbuilder (2.2.12)
       activesupport (>= 3.0.0, < 5)
@@ -58,6 +60,8 @@ GEM
     mime-types (2.4.3)
     minitest (5.5.1)
     multi_json (1.11.0)
+    purecss (0.5.0.2)
+      rails (>= 3.1)
     rack (1.5.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -122,10 +126,13 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  googlecharts
   haml
+  histogram
   jbuilder (~> 2.0)
   jquery-rails
   lazy_high_charts
+  purecss
   rails (= 4.1.8)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

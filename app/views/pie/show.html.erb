@@ -18,7 +18,7 @@
 	<%= high_chart("pie", @pie_chart) %>
 	</br>
 	</br>
-
+	<%= link_to "Get CSV File", {:controller => "pie", :action => "download",id: "download", :car => @csv }%>
 	<div class="header">
 		<h2>CSV of above data</h2>
 		<h3>Top row is User Ids, bottom is attribute percentages</h3>
