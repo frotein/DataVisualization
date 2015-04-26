@@ -1,5 +1,3 @@
-require 'histogram/array'  # enables Array#histogram
-require 'googlecharts'
 require 'csv'
 
 class HistogramChartController < ApplicationController
