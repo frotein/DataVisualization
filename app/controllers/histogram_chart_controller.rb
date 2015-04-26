@@ -1,10 +1,15 @@
-require 'histogram/array'  # enables Array#histogram
-require 'googlecharts'
+#require 'histogram/array'  # enables Array#histogram
+#require 'googlecharts'
 
 class HistogramChartController < ApplicationController
   def new
 
-	@names = DataMatrix.getNames() 
+    valid_ids = DataMatrix.validIds
+    valid_ids = valid_ids.sort
+    @minID = valid_ids.first
+    @maxID = valid_ids.last
+
+    @names = DataMatrix.getNames() 
     @rows = DataMatrix.getData()
     @freq = params[:freq].to_f
     if(@freq == nil || @freq == 0)

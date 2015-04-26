@@ -1,17 +1,28 @@
-<h1>HistogramChart new</h1>
-<%= form_tag("/histogram_chart/new", method: "get") do %>
-  <%= label_tag(:q, "Players from: ") %>
-  <%= number_field_tag(:from,value: @from) %>
-  <%= label_tag(:to, "to: ") %>
-  <%= number_field_tag(:to,value: @to) %>
-  <%= label_tag(:freq, "Range: ") %>
-  <%= number_field_tag(:freq,value: @freq) %>
-  <%= submit_tag("Update") %>
-  	<% @names.each_with_index do |n,index| %>
-  		<% if index < 5 %>
-  		<%= radio_button_tag(:a,n) %>
-  		<%= label_tag(:l,n) %> 
-  		<% end %>
-  	<% end %>
-<% end %>
-<%= high_chart("Attribute_6", @chart) %> 
+<div class="wrapper">
+  <div class="head pure-g">
+    <h1 class="pure-u-5-5 header">Histogram!</h1>
+  </div>
+
+  <div id="main" class="header">
+    <%= form_tag("/histogram_chart/new", method: "get") do %>
+      <%= label_tag(:q, "Players from: ") %>
+      <%= number_field_tag(:from, @from, :min => @minID, :max => @maxID) %>
+      <%= label_tag(:to, "to: ") %>
+      <%= number_field_tag(:to, @to, :min => @minID, :max => @maxID) %>
+      <%= label_tag(:freq, "Range: ") %>
+      <%= number_field_tag(:freq, @freq) %>
+      <%= submit_tag("Update") %>
+      </br>
+      <div id='attr_select' class="pure-g">
+        <% @names.each_with_index do |n,index| %>
+          <div class="pure-u-1-8">
+          	<%= radio_button_tag(:a,n) %>
+          	<%= label_tag(:l,n) %> 
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  </br>
+  <%= high_chart("Attribute_6", @chart) %> 
+</div>
