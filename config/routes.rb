@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+
+  get 'mailer/new'
+
+  get 'mailer/create'
+
   get 'histogram_chart/new'
 
   get 'histogram_chart/show'
+
 
   get 'home/new'
 

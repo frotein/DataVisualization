@@ -1,0 +1,34 @@
+<h1>Send an email with game state codes</h1>
+<%= form_tag("/mailer/create", method: "get") do %>
+	<%= label_tag(:q, "Send to:") %>
+ 	<%= email_field_tag(:email) %> <%#tag to get email from%>
+
+
+
+ 	</br>
+ 	<h5> Variable | Value</h5->
+ 	<%= button_tag("Add more rows", type: 'button', name: 'add_row', id: "add_row") %>
+ 	<div id="json_rows">
+		<%= text_field_tag('var1') %> = <%= text_field_tag('val1') %></br>
+		<%= text_field_tag('var2') %> = <%= text_field_tag('val2') %></br>
+		<%= text_field_tag('var3') %> = <%= text_field_tag('val3') %></br>
+		<%= text_field_tag('var4') %> = <%= text_field_tag('val4') %></br>
+	</div>
+
+ 	</br>
+ 	<h3>Please fill out the forms below to complete the email</h3>
+ 	Subject: Invitation to play <%= text_field_tag(:game_name, nil, placeholder: 'Game Name') %> </br>
+ 	Hello! You have been invited to take part in a study by <%= text_field_tag(:researcher_name, nil, placeholder: 'Your Name') %> on <%= text_field_tag(:description, nil, placeholder: 'Research Description') %>. To participate, please go to <%= text_field_tag(:game_url, nil, placeholder: 'Download URL') %> and follow the prompts to start up the game. At a certain point you will be prompted to input a unique code, please copy and paste the bolded text below. If you have any questions please contact us at <%= text_field_tag(:contact_info, nil, placeholder: 'Phone # or Email') %>
+
+ 	<h4>
+    Thank you for your participation,
+    </h4>
+    <h3>
+    <%= text_field_tag(:researcher_name, nil, placeholder: 'Signature') %>
+    </h3>
+
+    </br>
+
+	<%= submit_tag("Send", confirm: 'Send this email?') %>
+
+<% end %>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>
+      Hello! You have been invited to take part in a study by <%= @researcher_name %> on <%= @description %>. To participate, please go to <%= @game_url %> and follow the prompts to start up the game. At a certain point you will be prompted to input a unique code, please copy paste the bolded text below. If you have any questions please contact us at <%= @contact_info %>
+    </p>
+    <div>
+    	<b>
+    		<%= @json_code %>
+    	</b>
+
+    </div>
+    </br>
+    <p>
+    Thank you for your participation,
+    </p>
+    <p>
+    <%= @researcher_name %>
+    </p>
+  </body>
+</html>
