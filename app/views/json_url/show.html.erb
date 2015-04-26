@@ -25,6 +25,7 @@
     <% end %>
   </div>
   
+  <%= link_to "Get CSV File", {:controller => "json_url", :action => "download",id: "download", :car => @s }%>
   </br>
   </br>
   <%= high_chart("GroupByAttr", @chart_attribute) %>

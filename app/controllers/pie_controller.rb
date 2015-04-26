@@ -4,6 +4,8 @@ class PieController < ApplicationController
 	require 'open-uri'
 	require 'matrix'
 	
+  
+
   def inspectKeys(all_array)
     ret_array = []
     for element in all_array
@@ -64,6 +66,7 @@ class PieController < ApplicationController
       }
       f.series(series)
       f.tooltip({pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'})
+      
       f.options[:title][:text] = "Distribution of " + @attribute
       f.legend(:layout=> 'horizontal',:style=> {:left=> 'auto', :bottom=> '500px',:right=> '50px',:top=> '1000px'})
       f.plot_options(:pie=>{
@@ -80,4 +83,10 @@ class PieController < ApplicationController
       })
     end
   end
+
+   def download 
+     @s = params[:car]
+     send_data(@s, :filename => "Data.csv")
+  end
+
 end
