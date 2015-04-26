@@ -1,4 +1,4 @@
-<h1>Pie Chartzzzzzzzzz</h1>
+<h1>Pie Chart</h1>
 <%#<%= select(:pie_controller, :names, @names) %>
 <%= form_tag("/pie/create", method: "get") do %>
 	<%= label_tag(:q, "Players from: ") %>
@@ -9,6 +9,9 @@
 
 	<%= select_tag(:attribute, options_for_select(@names, @attribute), )%>
 <% end %>
+</br>
+ <%= link_to "Get CSV File", {:controller => "pie", :action => "download",id: "download", :car => @csv }%>
+</br>
 <%= high_chart("pie", @pie_chart) %>
 </br>
 </br>

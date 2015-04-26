@@ -12,10 +12,11 @@ Rails.application.routes.draw do
   get 'home/new'
 
   get 'home/create'
-
-  resources :json_url, :only => [:show, :new, :create]
-  resources :by_attribute, :only => [:show, :new, :create]
-  resources :pie, :only=> [:show, :new, :create]
+  get 'json_url/download', to: 'json_url#download'
+  get 'pie/download', to: 'pie#download'
+  resources :json_url, :only => [:show, :new, :create,:download]
+  resources :by_attribute, :only => [:show, :new, :create,:download]
+  resources :pie, :only=> [:show, :new, :create,:download]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

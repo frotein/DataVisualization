@@ -2,6 +2,7 @@ class JsonUrlController < ApplicationController
 	require 'json'
 	require 'open-uri'
 	require 'matrix'
+  require 'csv'
 
   def new
     @names = DataMatrix.getNames()
@@ -10,10 +11,16 @@ class JsonUrlController < ApplicationController
     @min = valid_ids.first
     @max = valid_ids.last
   end
+  
+  def download 
+     @s = params[:car]
+     send_data(@s, :filename => "Data.csv")
+  end
 
   def show
     @names = DataMatrix.getNames() 
     @valid_ids = DataMatrix.validIds
+    @return_csv = params[:returnc]
     @from  = params[:from]
     @to = params[:to]
     @valid_ids.sort
@@ -41,6 +48,9 @@ class JsonUrlController < ApplicationController
         end
       end
     end
+
+    @s = CSV.generate do |csv| @rows.to_a.each do |elem| csv << elem end end
+    
     @chart_attribute = LazyHighCharts::HighChart.new('GroupByAttr') do |f|
       f.title(:text => "Most Recent Values of " + @rows.keys.join(", ") + " by Attribute")
       

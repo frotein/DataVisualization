@@ -6,14 +6,16 @@
   <%= label_tag(:to, "to: ") %>
   <%= number_field_tag(:to, @to, :min => @min, :max => @max) %>
   <%= submit_tag("Update") %>
-  
+  <% @returnc = false  %>
   <% @names.each_with_index do |n,index| %>
     <% checked = @rows.has_key?(n) %>
     <%= check_box_tag("display_me_" + n, n, checked) %>
     <%= label_tag(:l,n) %> 
   <% end %>
-
 <% end %>
+ </br>
+ 
+  <%= link_to "Get CSV File", {:controller => "json_url", :action => "download",id: "download", :car => @s }%>
 </br>
 </br>
 <%= high_chart("GroupByAttr", @chart_attribute) %>
