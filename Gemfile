@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'lazy_high_charts'
 gem 'histogram'
 gem 'googlecharts'
+gem 'purecss'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
