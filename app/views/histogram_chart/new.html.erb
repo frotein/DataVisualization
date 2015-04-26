@@ -1,0 +1,17 @@
+<h1>HistogramChart new</h1>
+<%= form_tag("/histogram_chart/new", method: "get") do %>
+  <%= label_tag(:q, "Players from: ") %>
+  <%= number_field_tag(:from,value: @from) %>
+  <%= label_tag(:to, "to: ") %>
+  <%= number_field_tag(:to,value: @to) %>
+  <%= label_tag(:freq, "Range: ") %>
+  <%= number_field_tag(:freq,value: @freq) %>
+  <%= submit_tag("Update") %>
+  	<% @names.each_with_index do |n,index| %>
+  		<% if index < 5 %>
+  		<%= radio_button_tag(:a,n) %>
+  		<%= label_tag(:l,n) %> 
+  		<% end %>
+  	<% end %>
+<% end %>
+<%= high_chart("Attribute_6", @chart) %> 
