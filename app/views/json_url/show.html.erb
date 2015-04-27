@@ -25,7 +25,6 @@
     <% end %>
   </div>
   
-  <%= link_to "Get CSV File", {:controller => "json_url", :action => "download",id: "download", :car => @s }%>
   </br>
   </br>
   <%= high_chart("GroupByAttr", @chart_attribute) %>
@@ -38,7 +37,7 @@
   </br>
   
   <div class="header">
-    <h2>CSV of above data</h2>
+    <h2>CSV of above data    -    <%= link_to "Download CSV File", {:controller => "json_url", :action => "download",id: "download", :car => @s }%></h2>
     <h3>First row attribute of each row, second row gives the user of each collumn</h3>
     <%= @rows.keys.join(", ")%> 
     </br>

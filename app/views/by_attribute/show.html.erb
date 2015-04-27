@@ -25,7 +25,7 @@
 	<%= high_chart("Attribute_6", @chartty) %>
 
 	<div class="header">
-		<h2>CSV of above data</h2>
+		<h2>CSV of above data    -    <%= link_to "Download CSV File", {:controller => "json_url", :action => "download",id: "download", :car => @s }%></h2>
 		<%= @rows.keys.join(", ") %>
 		<% @rows.each do |key, value| %>
 		</br>
