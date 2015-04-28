@@ -1,28 +1,14 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Data Visualization 
 
-Things you may want to cover:
+once API is running, go to these localhosts while running the ruby project
 
-* Ruby version
+http://localhost:3000/home/new   home screen
+http://localhost:3000/pie/new pie chart
+http://localhost:3000/by_attribute  bar chart by attribute
+http://localhost:3000/histogram_chart histogram chart
+http://localhost:3000/mailer/new emailer
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+portal API
+https://github.com/bmaddenneu/cs4500-admin-portal-tool
